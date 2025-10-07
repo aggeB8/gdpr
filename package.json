@@ -1,0 +1,16 @@
+{
+    "name": "gdpr",
+    "private": "true",
+    "workspaces": [
+        "backend",
+        "backend-auth",
+        "frontend"
+    ],
+    "devDependencies": {
+        "concurrently": "^9.2.1",
+        "nodemon": "^3.1.10"
+    },
+    "scripts": {
+        "dev": "concurrently -n backend,backend-auth,frontend -c green,blue,cyan \"npm run dev --workspace=backend\" \"npm run dev --workspace=backend-auth\" \"npm run dev --workspace=frontend\""
+    }
+}
