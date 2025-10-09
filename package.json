@@ -11,6 +11,6 @@
         "nodemon": "^3.1.10"
     },
     "scripts": {
-        "dev": "concurrently -n backend,backend-auth,frontend -c green,blue,cyan \"npm run dev --workspace=backend\" \"npm run dev --workspace=backend-auth\" \"npm run dev --workspace=frontend\""
+        "dev": "concurrently -n backend,backend-auth,frontend -c blue,cyan,green \"npm run dev --workspace=backend\" \"npm run dev --workspace=backend-auth\" \"npm run dev --workspace=frontend\""
     }
 }
