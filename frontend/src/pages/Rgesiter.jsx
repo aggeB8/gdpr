@@ -1,10 +1,13 @@
 import { useState } from "react";
-import axios from "axios";
 
-export default function Login() {
+
+export default function Register() {
+
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    name: "test",
+    email: "test@test.com",
+    password: "123456",
+    confirmPassword: "123456",
   });
 
   const [error, setError] = useState("");
@@ -24,37 +27,53 @@ export default function Login() {
     setError("");
     setSuccess("");
 
+    // Enkel validering
+    if (formData.password !== formData.confirmPassword) {
+      setError("Lösenorden matchar inte! Är du Blind eller Dement?");
+      return;
+    }
+
     // TEST: Logga data istället för att skicka till server
-    console.log("📝 LOGIN DATA:", {
+    console.log(" FORMULÄRDATA:", {
+      name: formData.name,
       email: formData.email,
-      password: formData.password
+      password: formData.password,
+      confirmPassword: formData.confirmPassword
     });
 
     // Simulera framgång
-    setSuccess(" Login test lyckades! Du är inte Dement och har inte Alzheimers.");
+    setSuccess(" Test lyckades! Bra jobbat du har inte Alzheimers loggad i konsolen.");
     
     // Rensa formuläret efter test
     setTimeout(() => {
       setFormData({
+        name: "",
         email: "",
         password: "",
+        confirmPassword: "",
       });
     }, 2000);
 
     /* URSPRUNGLIG KOD - använd när backend är klar:
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", {
+      const response = await axios.post("http://localhost:3000/api/auth/register", {
+        name: formData.name,
         email: formData.email,
         password: formData.password,
       });
 
-      if (response.status === 200) {
-        setSuccess("Inloggning lyckades!");
-        // Här kan du hantera token/redirect
+      if (response.status === 201) {
+        setSuccess("Registrering lyckades!");
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        });
       }
     } catch (err) {
       if (err.response) {
-        setError(err.response.data.message || "Något gick fel vid inloggning.");
+        setError(err.response.data.message || "Något gick fel vid registrering.");
       } else {
         setError("Kunde inte ansluta till servern.");
       }
@@ -62,11 +81,13 @@ export default function Login() {
     */
   };
 
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="w-full max-w-sm bg-white shadow-md rounded-xl p-8 border border-gray-100">
         <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-          Login
+          Sign up
         </h2>
         
         {/* Error and Success Messages */}
@@ -82,6 +103,22 @@ export default function Login() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-medium text-blue-700 mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="block w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-blue-700 mb-1">
@@ -113,23 +150,35 @@ export default function Login() {
               required
             />
           </div>
+
+          {/* Confirm Password */}
+          <div>
+            <label className="block text-sm font-medium text-blue-700 mb-1">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-900"
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
           
           {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200"
           >
-            Sign in
+            Sign up
           </button>
         </form>
         
-        <p className="text-center text-sm text-gray-600 mt-5">
-          Don't have an account?{" "}
-          <a href="/register" className="text-blue-600 hover:underline">
-            Sign up here
-          </a>
-        </p>
+
       </div>
     </div>
+
   );
 }
