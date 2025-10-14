@@ -1,55 +1,67 @@
 import './App.css';
-import { useState } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Register from './pages/Rgesiter';
-import Navbar from './components/Navbar';  
+import Register from './pages/Register';
+import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home'); // 'home', 'login', 'register'
+  const location = useLocation();
 
   return (
     <div>
-      {/* Navigation Tabs */}
+      <Navbar />
+      
+      {/* Navigation med Router Links */}
       <nav className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto flex justify-center space-x-0">
-          <button
-            onClick={() => setCurrentPage('home')}
+          <Link
+            to="/"
             className={`px-8 py-3 font-medium transition-colors border-b-2 ${
-              currentPage === 'home'
+              location.pathname === '/'
                 ? 'text-blue-600 border-blue-600 bg-blue-50'
                 : 'text-gray-700 border-transparent hover:text-blue-600 hover:border-gray-300'
             }`}
           >
             Home
-          </button>
-          <button
-            onClick={() => setCurrentPage('login')}
+          </Link>
+          <Link
+            to="/login"
             className={`px-8 py-3 font-medium transition-colors border-b-2 ${
-              currentPage === 'login'
+              location.pathname === '/login'
                 ? 'text-blue-600 border-blue-600 bg-blue-50'
                 : 'text-gray-700 border-transparent hover:text-blue-600 hover:border-gray-300'
             }`}
           >
             Login
-          </button>
-          <button
-            onClick={() => setCurrentPage('register')}
+          </Link>
+          <Link
+            to="/register"
             className={`px-8 py-3 font-medium transition-colors border-b-2 ${
-              currentPage === 'register'
+              location.pathname === '/register'
                 ? 'text-blue-600 border-blue-600 bg-blue-50'
                 : 'text-gray-700 border-transparent hover:text-blue-600 hover:border-gray-300'
             }`}
           >
             Sign Up
-          </button>
+          </Link>
         </div>
       </nav>
 
-      {/* Content */}
-      {currentPage === 'home' && <Home />}
-      {currentPage === 'login' && <Login />}
-      {currentPage === 'register' && <Register />}
+      {/* Routes */}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route 
+          path="/" 
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          } 
+        />
+      </Routes>
     </div>
   );
 }

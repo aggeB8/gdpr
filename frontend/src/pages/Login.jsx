@@ -1,12 +1,14 @@
 import { useState } from "react";
-import axios from "axios";
+import { useAuth } from "../Context/AuthContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -18,30 +20,25 @@ export default function Login() {
     });
   };
 
-  // Skicka formulär - TESTVERSION (byt tillbaka senare)
+  // Skicka formulär
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
 
-    // TEST: Logga data istället för att skicka till server
-    console.log("📝 LOGIN DATA:", {
-      email: formData.email,
-      password: formData.password
-    });
-
-    // Simulera framgång
-    setSuccess(" Login test lyckades! Du är inte Dement och har inte Alzheimers.");
+    // Försök logga in med AuthContext
+    const success = login(formData.email, formData.password);
     
-    // Rensa formuläret efter test
-    setTimeout(() => {
-      setFormData({
-        email: "",
-        password: "",
-      });
-    }, 2000);
+    if (success) {
+      setSuccess("✅ Inloggning lyckades! Omdirigerar...");
+      setTimeout(() => {
+        navigate("/"); // Gå till startsidan efter lyckad inloggning
+      }, 1000);
+    } else {
+      setError("❌ Fel email eller lösenord. Prova test@test.com med lösenord 123456");
+    }
 
-    /* URSPRUNGLIG KOD - använd när backend är klar:
+    /*  använd när backend är klar:
     try {
       const response = await axios.post("http://localhost:3000/api/auth/login", {
         email: formData.email,
@@ -63,10 +60,10 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-sm bg-white shadow-md rounded-xl p-8 border border-gray-100">
-        <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-          Login
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center mb-4 text-blue-600">
+          Logga In
         </h2>
         
         {/* Error and Success Messages */}
@@ -81,10 +78,10 @@ export default function Login() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-blue-700 mb-1">
+            <label className="block text-sm font-medium mb-1 text-blue-700 ">
               Email
             </label>
             <input
@@ -117,9 +114,9 @@ export default function Login() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200"
+            className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition"
           >
-            Sign in
+            Logga In
           </button>
         </form>
         
