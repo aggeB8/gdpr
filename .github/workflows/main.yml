@@ -1,0 +1,19 @@
+name: Discord
+
+on: 
+  push:
+    branches: [main]
+
+jobs:
+  react_on_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send message
+        uses: sebastianpopp/discord-action@releases/v2
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message: |
+            🧑‍💻 **${{ github.actor }}** has pushed to **Branch: ${{ github.ref_name }}**
+            💬 Commit: `${{ github.event.head_commit.message }}`
+            🔗 [Show commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            📦 SHA: `${{ github.sha }}`
