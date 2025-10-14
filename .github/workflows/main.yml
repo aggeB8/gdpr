@@ -16,4 +16,4 @@ jobs:
             🧑‍💻 `**${{ github.actor }}** has pushed to Branch: ${{ github.ref_name }}`
             💬 Commit: _${{ github.event.head_commit.message }}_
             🔗 [Show commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
-            📦 Short SHA: `${{ github.sha.substring(0,7) }}`
+            📦 SHA: `${{ github.sha }}`
