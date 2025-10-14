@@ -8,14 +8,12 @@ jobs:
   react_on_push:
     runs-on: ubuntu-latest
     steps:
-      - name: Prepare message
-        id: vars
-        run: |
-          SHORT_SHA=${GITHUB_SHA::7}
-          echo "MSG=🧑‍💻 **${{ github.actor }}** has pushed to **Branch: ${{ github.ref_name }}**\n💬 Commit: ${{ github.event.head_commit.message }}\n🔗 [Show commit](https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA})\n📦 SHA: \`${SHORT_SHA}\`" >> $GITHUB_ENV
-    
       - name: Send message
         uses: sebastianpopp/discord-action@releases/v2
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: '${{ env.MSG }}'
+          message: |
+            🧑‍💻 **${{ github.actor }}** has pushed to **Branch: ${{ github.ref_name }}**
+            💬 Commit: `${{ github.event.head_commit.message }}`
+            🔗 [Show commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            📦 SHA: `${{ github.sha }}`
