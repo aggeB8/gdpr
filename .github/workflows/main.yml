@@ -12,5 +12,8 @@ jobs:
         uses: sebastianpopp/discord-action@releases/v2
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: ${{ github.actor }} has successfully pushed to main.
-                   ${{ github.event.head_commit.message }} ${{ github.sha }}
+          message: |
+            🧑‍💻 `**${{ github.actor }}** has pushed to Branch: ${{ github.ref_name }}`
+            💬 Commit: _${{ github.event.head_commit.message }}_
+            🔗 [Show commit](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+            📦 Short SHA: `${{ github.sha.substring(0,7) }}`
