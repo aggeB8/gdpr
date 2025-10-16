@@ -3,6 +3,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProfilePage from './pages/ProfilePage'; // ← LÄGG TILL ProfilePage
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -26,6 +27,19 @@ function App() {
           >
             Home
           </Link>
+          
+          {/* ← LÄGG TILL Profile-länk */}
+          <Link
+            to="/profile"
+            className={`px-8 py-3 font-medium transition-colors border-b-2 ${
+              location.pathname === '/profile'
+                ? 'text-blue-600 border-blue-600 bg-blue-50'
+                : 'text-gray-700 border-transparent hover:text-blue-600 hover:border-gray-300'
+            }`}
+          >
+            Profil
+          </Link>
+          
           <Link
             to="/login"
             className={`px-8 py-3 font-medium transition-colors border-b-2 ${
@@ -53,6 +67,17 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        
+        {/* ← LÄGG TILL Profile-route */}
+        <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          } 
+        />
+        
         <Route 
           path="/" 
           element={
