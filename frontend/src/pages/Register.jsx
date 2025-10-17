@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import RegisterButton from "../components/RegisterButton";
+import AnimatedBackground from "../components/AnimatedBackground";
 
 
 export default function Register() {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "test",
-    email: "test@test.com",
-    password: "123456",
-    confirmPassword: "123456",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [error, setError] = useState("");
@@ -84,11 +88,18 @@ export default function Register() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="w-full max-w-sm bg-white shadow-md rounded-xl p-8 border border-gray-100">
-        <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-          Sign up
-        </h2>
+    <>
+      <AnimatedBackground />
+      <div className="min-h-screen flex items-center justify-center relative z-10 px-4">
+        <div className="w-full max-w-md glass-card p-8 rounded-2xl">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold gradient-text-pro mb-2">
+              Join us today
+            </h1>
+            <p className="text-slate-600 text-sm">
+              Create your account to get started
+            </p>
+          </div>
         
         {/* Error and Success Messages */}
         {error && (
@@ -168,17 +179,30 @@ export default function Register() {
           </div>
           
           {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-200"
-          >
-            Sign up
-          </button>
-        </form>
-        
-
+          <div className="flex justify-center">
+            <RegisterButton 
+              text="Sign up"
+              handleClick={(e) => {
+                e.preventDefault();
+                handleSubmit(e);
+              }}
+            />
+          </div>
+          </form>
+          
+          <div className="text-center mt-6">
+            <p className="text-slate-600 text-sm">
+              Already have an account?{" "}
+              <button
+                onClick={() => navigate('/login')}
+                className="text-blue-600 hover:text-blue-800 font-medium hover:underline transition-colors"
+              >
+                Sign in here
+              </button>
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-
+    </>
   );
 }

@@ -10,7 +10,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-blue-600 text-white px-8 py-3 flex justify-between items-center shadow-md">
+    <nav className="bg-blue-600 text-white px-8 py-3 flex justify-between items-center shadow-md relative z-50">
       <Link to="/" className="text-xl font-bold tracking-wide">
         twitterClone
       </Link>

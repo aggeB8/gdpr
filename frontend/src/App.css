@@ -3,4 +3,130 @@
 body {
     @apply text-white;
     @apply bg-zinc-900;
+    margin: 0;
+    padding: 0;
+}
+
+/* Professional background animations */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) rotate(0deg); 
+    opacity: 0.3;
+  }
+  25% { 
+    transform: translateY(-10px) translateX(5px) rotate(90deg); 
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translateY(-5px) translateX(-3px) rotate(180deg); 
+    opacity: 0.4;
+  }
+  75% { 
+    transform: translateY(-8px) translateX(2px) rotate(270deg); 
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { 
+    opacity: 0.1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.3; 
+    transform: scale(1.05);
+  }
+}
+
+@keyframes rotate-slow {
+  from { 
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-reverse {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* Utility classes */
+.animate-float {
+  animation: float 10s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 6s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+.animate-slide {
+  animation: slide 15s linear infinite;
+}
+
+.animate-slide-reverse {
+  animation: slide-reverse 18s linear infinite;
+}
+
+/* Glass morphism effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+}
+
+/* Professional gradient text */
+.gradient-text-pro {
+  background: linear-gradient(135deg, #1e293b, #3b82f6, #6366f1);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift-pro 8s ease-in-out infinite;
+}
+
+@keyframes gradient-shift-pro {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Twitter animations now handled by Tailwind config */
+
+/* Twitter-inspired containers */
+.twitter-yap-container {
+  @apply backdrop-blur-sm bg-black/10 hover:bg-slate-900/20 transition-all duration-300 border-slate-800/30;
+}
+
+.twitter-yap-container:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
