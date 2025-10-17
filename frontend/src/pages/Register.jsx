@@ -101,7 +101,7 @@ export default function Register() {
             </p>
           </div>
         
-        {/* Error and Success Messages */}
+        
         {error && (
           <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
             {error}
@@ -114,7 +114,7 @@ export default function Register() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name */}
+          
           <div>
             <label className="block text-sm font-medium text-blue-700 mb-1">
               Name
@@ -130,7 +130,7 @@ export default function Register() {
             />
           </div>
 
-          {/* Email */}
+         
           <div>
             <label className="block text-sm font-medium text-blue-700 mb-1">
               Email
@@ -146,7 +146,7 @@ export default function Register() {
             />
           </div>
 
-          {/* Password */}
+          
           <div>
             <label className="block text-sm font-medium text-blue-700 mb-1">
               Password
@@ -162,7 +162,7 @@ export default function Register() {
             />
           </div>
 
-          {/* Confirm Password */}
+          
           <div>
             <label className="block text-sm font-medium text-blue-700 mb-1">
               Confirm Password
@@ -178,7 +178,7 @@ export default function Register() {
             />
           </div>
           
-          {/* Submit Button */}
+         
           <div className="flex justify-center">
             <RegisterButton 
               text="Sign up"

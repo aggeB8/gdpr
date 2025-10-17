@@ -3,7 +3,7 @@ import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ProfilePage from './pages/ProfilePage'; // ← LÄGG TILL ProfilePage
+import ProfilePage from './pages/ProfilePage'; 
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -14,7 +14,7 @@ function App() {
     <div>
       <Navbar />
       
-      {/* Navigation med Router Links */}
+      
       <nav className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto flex justify-center space-x-0">
           <Link
@@ -28,7 +28,7 @@ function App() {
             Home
           </Link>
           
-          {/* ← LÄGG TILL Profile-länk */}
+          
           <Link
             to="/profile"
             className={`px-8 py-3 font-medium transition-colors border-b-2 ${
@@ -63,12 +63,12 @@ function App() {
         </div>
       </nav>
 
-      {/* Routes */}
+      
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         
-        {/* ← LÄGG TILL Profile-route */}
+       
         <Route 
           path="/profile" 
           element={

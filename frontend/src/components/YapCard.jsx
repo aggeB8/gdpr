@@ -27,7 +27,7 @@ export default function YapCard({ yap }) {
         : 'bg-white hover:bg-gray-50'
     }`}>
       <div className="flex space-x-3">
-        {/* Twitter-style profile image with hover glow */}
+        
         <div className="relative">
           <img
             src={yap.user?.profileImage || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Crect width="40" height="40" fill="%23374151"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16"%3E👤%3C/text%3E%3C/svg%3E'}
@@ -40,7 +40,7 @@ export default function YapCard({ yap }) {
         </div>
         
         <div className="flex-1 min-w-0">
-          {/* Twitter-style user info header */}
+         
           <div className="flex items-center space-x-2 mb-1">
             <span className={`font-semibold hover:text-blue-500 transition-colors duration-200 cursor-pointer ${
               isDark ? 'text-white' : 'text-gray-900'
@@ -54,14 +54,14 @@ export default function YapCard({ yap }) {
             }`}>{yap.timeAgo}</span>
           </div>
           
-          {/* Theme-aware content */}
+         
           <p className={`leading-relaxed mb-3 ${
             isDark ? 'text-gray-100' : 'text-gray-900'
           }`}>
             {yap.text}
           </p>
           
-          {/* Theme-aware action buttons */}
+          
           <div className={`flex items-center justify-between max-w-md ${
             isDark ? 'text-slate-400' : 'text-slate-400'
           }`}>
@@ -101,7 +101,7 @@ export default function YapCard({ yap }) {
               <span className="text-sm font-medium">{yap.likes || 0}</span>
             </button>
 
-            {/* Share button (Twitter-style) */}
+            
             <button 
               className="flex items-center space-x-2 hover:text-blue-400 transition-all duration-200 p-2 rounded-full hover:bg-blue-500/10 group/btn"
             >

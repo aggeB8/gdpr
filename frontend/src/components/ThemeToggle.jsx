@@ -17,14 +17,14 @@ export default function ThemeToggle() {
       `}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
-      {/* Background glow effect */}
+      
       <div className={`
         absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 
         transition-opacity duration-300 blur-md
         ${isDark ? 'bg-yellow-400/20' : 'bg-blue-500/20'}
       `}></div>
       
-      {/* Icon container */}
+     
       <div className="relative z-10 transition-transform duration-300 group-hover:rotate-12">
         {isDark ? (
           // Sun icon for switching to light mode
@@ -39,7 +39,7 @@ export default function ThemeToggle() {
         )}
       </div>
 
-      {/* Ripple effect on click */}
+      
       <div className="absolute inset-0 rounded-full opacity-0 group-active:opacity-30 group-active:scale-110 transition-all duration-200 bg-current"></div>
     </button>
   );

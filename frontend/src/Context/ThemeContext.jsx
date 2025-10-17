@@ -17,11 +17,11 @@ export const ThemeProvider = ({ children }) => {
     return savedTheme || 'dark';
   });
 
-  // Spara tema i localStorage när det ändras
+  
   useEffect(() => {
     localStorage.setItem('theme', theme);
     
-    // Uppdatera dokumentets klass för Tailwind dark mode
+    
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {

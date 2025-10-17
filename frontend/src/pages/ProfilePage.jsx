@@ -121,7 +121,7 @@ export default function ProfilePage() {
     if(loading){
         return(
             <div className={`flex items-center justify-center min-h-screen ${isDark ? 'bg-slate-800' : 'bg-slate-100'}`}>
-                {/* Eye-friendly loading animation */}
+               
                 <div className={`fixed inset-0 pointer-events-none ${isDark ? 'bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900' : 'bg-gradient-to-br from-slate-50 via-slate-100 to-blue-50'}`}></div>
                 <div className="relative z-10 text-center">
                     <div className="animate-pulse mb-6">
@@ -132,7 +132,7 @@ export default function ProfilePage() {
                     </div>
                     <p className={`text-sm animate-pulse ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Laddar profil...</p>
                     
-                    {/* Subtle background animation */}
+                   
                     <div className="fixed inset-0 opacity-30 pointer-events-none">
                         <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-blue-500/10 rounded-full animate-pulse-slow"></div>
                         <div className="absolute bottom-1/4 right-1/4 w-24 h-24 bg-slate-500/10 rounded-full animate-pulse-slow" style={{animationDelay: '1s'}}></div>
@@ -151,7 +151,7 @@ export default function ProfilePage() {
                 : 'bg-white text-gray-900'
         }`}>
             
-            {/* Theme toggle button - fixed positioned */}
+            
             <div className="fixed top-20 right-4 z-40">
                 <ThemeToggle />
             </div>
@@ -161,7 +161,7 @@ export default function ProfilePage() {
                     ? 'bg-gray-900 text-white' 
                     : 'bg-white text-gray-900'
             }`}>
-                {/* Profile Header */}
+                
                 <div className={`border-b ${
                     isDark 
                         ? 'bg-gray-900 border-gray-700' 
@@ -176,7 +176,7 @@ export default function ProfilePage() {
                     />
                 </div>
 
-                {/* Navigation tabs */}
+                
                 <div className={`border-b sticky top-0 z-20 ${
                     isDark 
                         ? 'bg-gray-900 border-gray-700' 
@@ -214,7 +214,7 @@ export default function ProfilePage() {
                     </nav>
                 </div>
         
-                {/* Theme-aware Yaps container */}
+                
                 <div className={`divide-y ${
                     isDark ? 'divide-gray-700' : 'divide-gray-200'
                 }`}>

@@ -5,8 +5,8 @@ export default function ProtectedRoute({ children }) {
   const { user } = useAuth();
   
   if (!user) {
-    return <Navigate to="/login" replace />; // om användaren inte är inloggad -> skicka till login
+    return <Navigate to="/login" replace />; 
   }
   
-  return children; // om inloggad -> visa skyddad sida
+  return children; 
 }

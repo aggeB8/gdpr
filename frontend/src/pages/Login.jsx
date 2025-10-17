@@ -98,7 +98,7 @@ export default function Login() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email */}
+           
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">
                 Email address
@@ -116,7 +116,7 @@ export default function Login() {
               />
             </div>
 
-            {/* Password */}
+            
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">
                 Password
@@ -134,7 +134,7 @@ export default function Login() {
               />
           </div>
           
-          {/* Submit Button */}
+          
           <div className="flex justify-center">
             <RegisterButton 
               text="Logga In"

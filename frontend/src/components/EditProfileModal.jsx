@@ -125,7 +125,7 @@ export default function EditProfileModal({
 4. SPARA: handleSubmit anropas, data skickas till parent
 5. STÄNG: onClose anropas, parent sätter isOpen={false}
 
-VARFÖR DENNA DESIGN?
+
 - CONTROLLED COMPONENT: Parent kontrollerar när modalen visas
 - FORM VALIDATION: HTML5 validering + maxLength begränsningar
 - USER EXPERIENCE: Tydliga knappar och feedback

@@ -7,7 +7,7 @@ export const AuthProvider=({children})=>{
 
 
 
-    //kolla om användare sparad i localstorage
+   
     useEffect(()=>{
         const storeuser=localStorage.getItem('user');
         if(storeuser){

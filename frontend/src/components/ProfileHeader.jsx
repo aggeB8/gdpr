@@ -28,7 +28,7 @@ export default function ProfileHeader({user, isOwnProfile, onEditProfile, onFoll
          ? 'bg-gray-900 text-white' 
          : 'bg-white text-gray-900'
      }`}>
-       {/* Eye-friendly cover image area */}
+       
        <div className={`h-48 relative overflow-hidden ${
          isDark 
            ? 'bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800' 

@@ -6,7 +6,7 @@ export default function Navbar() {
   const { user, logout } = useAuth();
 
   if (location.pathname === "/login" || location.pathname === "/register") {
-    return null; //  gömmer Navbar på login/register
+    return null; 
   }
 
   return (
