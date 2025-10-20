@@ -1,5 +1,5 @@
 import express from "express";
-import { createYap } from "../Controllers/yapController.js";
+import { createYap,getYaps } from "../Controllers/yapController.js";
 
 const router = express.Router();
 

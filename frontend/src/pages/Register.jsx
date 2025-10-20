@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RegisterButton from "../components/RegisterButton";
 import AnimatedBackground from "../components/AnimatedBackground";
+import axios from "axios";
 
 
 export default function Register() {
@@ -33,32 +34,11 @@ export default function Register() {
 
     // Enkel validering
     if (formData.password !== formData.confirmPassword) {
-      setError("Lösenorden matchar inte! Är du Blind eller Dement?");
+      setError("Lösenorden matchar inte!");
       return;
     }
 
-    // TEST: Logga data istället för att skicka till server
-    console.log(" FORMULÄRDATA:", {
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      confirmPassword: formData.confirmPassword
-    });
-
-    // Simulera framgång
-    setSuccess(" Test lyckades! Bra jobbat du har inte Alzheimers loggad i konsolen.");
-    
-    // Rensa formuläret efter test
-    setTimeout(() => {
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
-    }, 2000);
-
-    /* URSPRUNGLIG KOD - använd när backend är klar:
+    // RIKTIG KOD - använd axiosClient istället för vanlig axios
     try {
       const response = await axios.post("http://localhost:3000/api/auth/register", {
         name: formData.name,
@@ -74,6 +54,11 @@ export default function Register() {
           password: "",
           confirmPassword: "",
         });
+        
+        // Navigera till login efter framgång
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
       }
     } catch (err) {
       if (err.response) {
@@ -82,7 +67,7 @@ export default function Register() {
         setError("Kunde inte ansluta till servern.");
       }
     }
-    */
+    
   };
 
 
