@@ -20,10 +20,10 @@ export const createYap = async (req, res) => {
 export const getYaps = async (req, res) => {
   try {
     const yaps = await Yap.find()
-      .populate("author", "username")
+      // .populate("author", "username")
       .sort({ createdAt: -1 });
 
-    res.status(200).json();
+    res.status(200).json(yaps);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
