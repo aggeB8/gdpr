@@ -15,3 +15,16 @@ export const createYap = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Hämta YAP´s.
+export const getYaps = async (req, res) => {
+  try {
+    const yaps = await Yap.find()
+      .populate("author", "username")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
