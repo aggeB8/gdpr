@@ -20,10 +20,27 @@ export const createYap = async (req, res) => {
 export const getYaps = async (req, res) => {
   try {
     const yaps = await Yap.find()
-      .populate("author", "username")
+      // .populate("author", "username")
       .sort({ createdAt: -1 });
 
-    res.status(200).json();
+    res.status(200).json(yaps);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Ta bort YAP
+export const deleteYap = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedYap = await Yap.findByIdAndDelete(id);
+
+    if (!deletedYap) {
+      return res.status(404).json({ message: "YAP not found" });
+    }
+
+    res.status(200).json({ message: "YAP deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -10,16 +10,16 @@ connectDB();
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true 
-}))
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
-app.use("/api/auth",authRoutes)
-
+app.use("/api/auth", authRoutes);
 app.use("/yaps", yapRoutes);
 
 const PORT = process.env.PORT || 3000;
