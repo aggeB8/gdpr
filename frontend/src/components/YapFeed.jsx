@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import YapCard from "./YapCard";
-import { useEffect } from "react";
+import { formatDistanceToNow } from "date-fns";
 
 export default function YapFeed() {
   const [yaps, setYaps] = useState([]);
@@ -25,6 +25,10 @@ export default function YapFeed() {
     }
   };
 
+  const handleDelete = (yapId) => {
+    setYaps(yaps.filter((yap) => yap._id !== yapId));
+  };
+
   return (
     <>
       {yaps.map((yap) => (
@@ -34,10 +38,13 @@ export default function YapFeed() {
             id: yap._id,
             text: yap.content,
             user: { name: "Anonymonus", username: "Anon" },
-            timeAgo: "1m",
+            timeAgo: formatDistanceToNow(new Date(yap.createdAt), {
+              addSuffix: true,
+            }),
             likes: 0,
             replies: 0,
             reyaps: 0,
+            onDelete: handleDelete,
           }}
         />
       ))}

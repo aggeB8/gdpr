@@ -15,12 +15,53 @@ export default function YapCard({ yap }) {
     console.log("Re-yapar:", yap.id);
   };
 
+  const handleDelete = async () => {
+    if (!window.confirm("Delete this YAP?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/yaps/${yap.id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete YAP");
+      }
+
+      if (yap.onDelete) {
+        yap.onDelete(yap.id);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div
-      className={`p-4 transition-colors ${
+      className={`p-4 transition-colors relative ${
         isDark ? "bg-gray-900 hover:bg-gray-800" : "bg-white hover:bg-gray-50"
       }`}
     >
+      <button
+        onClick={handleDelete}
+        className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors p-1 rounded-full hover:bg-red-500/10"
+        aria-label="Delete YAP"
+      >
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
       <div className="flex space-x-3">
         <div className="relative">
           <img
