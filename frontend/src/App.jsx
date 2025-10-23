@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CookieConsentBanner from "./components/CookieConsent/CookieConsentBanner";
+import CookieSettings from "./components/CookieConsent/CookieSettings";
 
 function App() {
   const location = useLocation();
@@ -83,6 +85,10 @@ function App() {
           }
         />
       </Routes>
+
+      
+      <CookieConsentBanner />
+      <CookieSettings />
     </div>
   );
 }

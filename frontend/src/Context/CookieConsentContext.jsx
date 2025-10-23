@@ -5,10 +5,10 @@ import{
     saveConsent,
     clearConsent,
     DEFAULT_CONSENT,
-    validateConsentData
+    validateConsentData,
+    COOKIE_CATEGORIES,
+    COOKIE_DESCRIPTIONS
 } from '../utils/coockieUtils.js';
-import { set } from 'date-fns';
-import { COOKIE_CATEGORIES } from '../utils/coockieUtils.js';
 
 const CookieConsentContext=createContext(null);
 export const useCookieConsent=()=>{
@@ -159,6 +159,7 @@ export const CookieConsentProvider=({children})=>{
                 needsConsentRenewal,
 
                 COOKIE_CATEGORIES,
+                COOKIE_DESCRIPTIONS,
             };
 
             return(
