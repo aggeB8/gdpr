@@ -90,7 +90,7 @@ export const CookieConsentProvider=({children})=>{
     const acceptAllCookies=async()=>{
         const allAccepted={
             [COOKIE_CATEGORIES.NECESSARY]:true,
-            [COOKIE_CATEGORIES.ANALYTICS]:false,
+            [COOKIE_CATEGORIES.ANALYTICS]:true,
             [COOKIE_CATEGORIES.MARKETING]:true,
             [COOKIE_CATEGORIES.PERSONALIZATION]:true,
         };
