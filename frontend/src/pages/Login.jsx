@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "../Context/AuthContext.jsx";
+import { useCookieConsent } from "../context/CookieConsentContext.jsx";
 import { useNavigate } from "react-router-dom";
 import RegisterButton from "../components/RegisterButton";
 import AnimatedBackground from "../components/AnimatedBackground";
 
 export default function Login() {
   const { login } = useAuth();
+  const { consent } = useCookieConsent();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -27,6 +29,16 @@ export default function Login() {
     e.preventDefault();
     setError("");
     setSuccess("");
+
+    // Blockera om nödvändiga cookies ej accepterade
+    if (!consent || consent.necessary !== true) {
+      setError("Du måste acceptera nödvändiga cookies för att logga in.");
+      return;
+    }
+    if (!window.localStorage.getItem('yapsspace_cookie_consent')) {
+      setError("Du måste acceptera cookies för att logga in.");
+      return;
+    }
 
     // Försök logga in med AuthContext
     const success = login(formData.email, formData.password);

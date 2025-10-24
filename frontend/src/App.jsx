@@ -84,6 +84,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* <Route path="/privacy-policy" element={<PrivacyPolicy />} /> */}
       </Routes>
 
       

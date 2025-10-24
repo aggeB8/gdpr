@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect,useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import{
     getStoredConsent,
@@ -20,6 +21,7 @@ export const useCookieConsent=()=>{
 };
 
 export const CookieConsentProvider=({children})=>{
+    const navigate = useNavigate();
     const [consent,setConsent]=useState(null);
     const [hasChosenConsent,setHasChosenConsent]=useState(false);
     const [showBanner,setShowBanner]=useState(false);
@@ -78,6 +80,7 @@ export const CookieConsentProvider=({children})=>{
                 setHasChosenConsent(true);
                 setShowBanner(false);
                 setShowSettings(false);
+                navigate("/profile"); 
             }
 
             return savedConsent;

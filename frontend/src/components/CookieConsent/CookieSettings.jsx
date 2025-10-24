@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {motion,AnimatePresence} from 'framer-motion';
 import { useCookieConsent } from '../../context/CookieConsentContext.jsx';
 import './CookieSettings.css';
-import { set } from 'date-fns';
+import { Link } from "react-router-dom";
 
 const CookieSettings=()=>{
   const {
@@ -209,9 +209,9 @@ const CookieSettings=()=>{
                 <small>
                   klicka på knappen bara tänk inte för mycket nu. Du har inget val ändå men vi låtsas att du har det.
                   <br/>
-                  <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">
+                  <Link to="/privacy-policy" className="cookie-policy-link">
                     Du kan läsa mer i vår integritetspolicy om ids.
-                  </a>
+                  </Link>
                 </small>
               </div>
 
@@ -236,7 +236,7 @@ const CookieSettings=()=>{
     );
 };
 export default CookieSettings;
-              
 
-                    
+
+
 
