@@ -41,133 +41,94 @@ export default function Login() {
     }
 
     // Försök logga in med AuthContext
-    const success = login(formData.email, formData.password);
-    
-    if (success) {
-      setSuccess("✅ Inloggning lyckades! Omdirigerar...");
-      setTimeout(() => {
-        navigate("/"); // Gå till startsidan efter lyckad inloggning
-      }, 1000);
-    } else {
-      setError("❌ Fel email eller lösenord. Prova test@test.com med lösenord 123456");
-    }
-
-    /*  använd när backend är klar:
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", {
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (response.status === 200) {
-        setSuccess("Inloggning lyckades!");
-        // Här kan du hantera token/redirect
-      }
+      await login(formData.email, formData.password);
+      navigate('/');
     } catch (err) {
-      if (err.response) {
-        setError(err.response.data.message || "Något gick fel vid inloggning.");
-      } else {
-        setError("Kunde inte ansluta till servern.");
-      }
+      setError(err.message || "Inloggning misslyckades.");
     }
-    */
   };
 
   return (
     <>
       <AnimatedBackground />
-      <div className="min-h-screen flex items-center justify-center relative z-10 px-4">
-        <div className="w-full max-w-md glass-card p-8 rounded-2xl">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold gradient-text-pro mb-2">
-              Welcome back
-            </h1>
-            <p className="text-slate-600 text-sm">
-              Sign in to your account to continue
-            </p>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f5f3ff] to-[#e3f0ff] px-4 relative z-10">
+        <div className="w-full max-w-md bg-white p-10 rounded-3xl shadow-2xl border border-slate-100 flex flex-col items-center">
+          {/* Ikon */}
+          <div className="bg-violet-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#7c3aed" className="w-9 h-9">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 6.75V17.25C21 18.4926 19.9926 19.5 18.75 19.5H5.25C4.00736 19.5 3 18.4926 3 17.25V6.75M21 6.75C21 5.50736 19.9926 4.5 18.75 4.5H5.25C4.00736 4.5 3 5.50736 3 6.75M21 6.75L12 13.5L3 6.75" />
+            </svg>
           </div>
-        
-          {/* Error and Success Messages */}
+          {/* Rubrik och underrubrik */}
+          <h1 className="text-3xl font-extrabold text-slate-800 mb-1">Välkommen tillbaka!</h1>
+          <p className="text-slate-600 text-base mb-8">Logga in för att fortsätta ditt yap-äventyr</p>
+
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl">
-              <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                </svg>
-                {error}
-              </div>
+            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+              {error}
             </div>
           )}
           {success && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl">
-              <div className="flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                {success}
-              </div>
+            <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+              {success}
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-           
+          {/* Formulär */}
+          <form onSubmit={handleSubmit} className="w-full space-y-5">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Email address
-              </label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Enter your email"
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl bg-white/50 backdrop-blur-sm 
-                         focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 
-                         transition-all duration-200 text-slate-900 placeholder-slate-400"
+                className="w-full border border-gray-200 rounded-xl p-3 focus:ring-2 focus:ring-violet-400 focus:outline-none text-gray-900 bg-slate-50"
+                placeholder="din@email.com"
                 required
               />
             </div>
-
-            
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Password
-              </label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Lösenord</label>
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Enter your password"
-                className="w-full px-4 py-3 border border-slate-200 rounded-xl bg-white/50 backdrop-blur-sm 
-                         focus:outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 
-                         transition-all duration-200 text-slate-900 placeholder-slate-400"
+                className="w-full border border-gray-200 rounded-xl p-3 focus:ring-2 focus:ring-violet-400 focus:outline-none text-gray-900 bg-slate-50"
+                placeholder="********"
                 required
               />
-          </div>
-          
-          
-          <div className="flex justify-center">
-            <RegisterButton 
-              text="Logga In"
-              handleClick={(e) => {
-                e.preventDefault();
-                handleSubmit(e);
-              }}
-            />
-          </div>
-        </form>
-        
+            </div>
+            <button
+              type="submit"
+              className="w-full py-3 mt-2 rounded-xl bg-gradient-to-r from-violet-500 to-blue-400 text-white font-bold text-lg shadow-md hover:from-violet-600 hover:to-blue-500 transition-all"
+            >
+              Logga In
+            </button>
+          </form>
+
+          {/* Länk till registrering */}
           <div className="text-center mt-6">
             <p className="text-slate-600 text-sm">
-              Don't have an account?{" "}
-              <button
-                onClick={() => navigate('/register')}
-                className="text-blue-600 hover:text-blue-800 font-medium hover:underline transition-colors"
-              >
-                Sign up here
+              Har du inget konto ännu?{' '}
+              <button onClick={() => navigate('/register')} className="text-violet-600 hover:text-violet-800 font-medium hover:underline transition-colors">
+                Registrera dig här
               </button>
             </p>
+          </div>
+
+          {/* Demo credentials-box */}
+          <div className="w-full mt-8 bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-700 text-sm">
+            <div className="font-semibold mb-1 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#6366f1" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75A2.25 2.25 0 0014.25 4.5h-4.5A2.25 2.25 0 007.5 6.75v3.75m9 0V17.25A2.25 2.25 0 0114.25 19.5h-4.5A2.25 2.25 0 017.5 17.25V10.5m9 0h-9" />
+              </svg>
+              Demo Credentials:
+            </div>
+            <div>Email: <span className="font-mono bg-slate-200 px-1 rounded">test@test.com</span></div>
+            <div>Lösenord: <span className="font-mono bg-slate-200 px-1 rounded">123456</span></div>
           </div>
         </div>
       </div>
