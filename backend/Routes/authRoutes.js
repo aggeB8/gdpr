@@ -2,7 +2,7 @@ import express from "express";
 import { registerUser, loginUser, getCurrentUser } from "../Controllers/authController.js";  
 import authMiddleware from "../middleware/authMiddlewear.js";
 
-import { verifyRecaptcha } from "../Middleware/reCaptcha.js";
+import { verifyRecaptcha } from "../middleware/reCaptcha.js";
 
 const router = express.Router();
 

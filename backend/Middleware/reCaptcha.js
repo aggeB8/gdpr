@@ -1,6 +1,6 @@
 export const verifyRecaptcha = async (req, res, next) => {
   const token = req.body.recaptchaToken;
-  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+  const secretKey = process.env.RECAPTCHA_SECRET;
 
   console.log("🔍 Verifying reCAPTCHA...");
   console.log("Token received:", token ? "Yes" : "No");
@@ -13,7 +13,7 @@ export const verifyRecaptcha = async (req, res, next) => {
   }
 
   try {
-    // ⚡ NYtt sätt: Använd URLSearchParams för korrekt encoding
+
     const params = new URLSearchParams();
     params.append("secret", secretKey);
     params.append("response", token);

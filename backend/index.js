@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./Routes/authRoutes.js";
 import yapRoutes from "./Routes/yapRoutes.js";
+import gdprRoutes from "./Routes/gdprRoutes.js";
 import connectDB from "./Config/db.js";
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/yaps", yapRoutes);
+app.use("/api/gdpr", gdprRoutes);
 
 const PORT = process.env.PORT || 3000;
 
