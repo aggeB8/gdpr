@@ -50,7 +50,7 @@ export const registerUser = async (req, res) => {
     // Skapa JWT token med din JWT_SECRET från .env
     const token = jwt.sign(
       { userId: newUser._id },
-      process.env.JWT_SECRET,  // ← Här används din hemliga nyckel!
+      process.env.JWT_SECRET,  
       { expiresIn: '24h' }
     );
     
