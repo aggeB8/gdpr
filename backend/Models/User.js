@@ -1,5 +1,4 @@
-import mongoose from 'mongoose';
-
+import mongoose from "mongoose";
 
 // Användarmodell - namn, e-post, lösenord.
 //
@@ -10,28 +9,31 @@ const UserSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    email:{
-        type: String,
-        required: true,
-        unique: true, // ingen duplicerad e-post
-        lowercase: true,
-        trim: true,
+    email: {
+      type: String,
+      required: true,
+      unique: true, // ingen duplicerad e-post
+      lowercase: true,
+      trim: true,
     },
-    password:{
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 6,
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 6,
     },
-    bio: { type: String, default: "" }, // Nytt fält
-    avatar: { type: String, default: "" }, // Nytt fält (URL till bild)
-    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // Nytt fält
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // Nytt fält
-}, {
-    timestamps: true  // automatiska created/updated datum
-});
+    bio: { type: String, default: "" }, 
+    avatar: { type: String, default: "" },
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  },
+  {
+    timestamps: true, // automatiska created/updated datum
+  }
+);
+;
 
-const User = mongoose.model('User', UserSchema);  
+const User = mongoose.model("User", UserSchema);
 export default User;
 
 
