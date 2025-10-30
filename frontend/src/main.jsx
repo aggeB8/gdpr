@@ -9,18 +9,15 @@ import App from "./App.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <GoogleReCaptchaProvider
-      reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-      scriptProps={{ async: true, defer: true, appendTo: "head" }}
-    >
+  <GoogleReCaptchaProvider reCaptchaKey="6LeSkfwrAAAAAD4Gf6HN4TH62aEIUehYCB4XB804">
       <BrowserRouter>
-        <ThemeProvider>
-          <AuthProvider>
+        <AuthProvider>
+          <ThemeProvider>
             <CookieConsentProvider>
               <App />
             </CookieConsentProvider>
-          </AuthProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </BrowserRouter>
     </GoogleReCaptchaProvider>
   </StrictMode>

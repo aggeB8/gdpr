@@ -70,6 +70,7 @@ export const getStoredConsent = () => {
                     credentials: 'include',
                     body: JSON.stringify(consentData),
                 });
+                console.log(await response.json()); // tilfälligt för att se svaret i consollen
                 if (!response.ok) {
                     console.warn('Failed to log consent on server:', response.statusText);
                 }
