@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 //
 
 const UserSchema = new mongoose.Schema({
-     
     name:{
         type: String,
         required: true,
@@ -24,9 +23,15 @@ const UserSchema = new mongoose.Schema({
         trim: true,
         minlength: 6,
     },
+    bio: { type: String, default: "" }, // Nytt fält
+    avatar: { type: String, default: "" }, // Nytt fält (URL till bild)
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // Nytt fält
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // Nytt fält
 }, {
     timestamps: true  // automatiska created/updated datum
 });
 
 const User = mongoose.model('User', UserSchema);  
 export default User;
+
+

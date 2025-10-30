@@ -15,6 +15,19 @@ export const registerUser = async (req, res) => {
         message: "Alla fält krävs (name, email, password)" 
       });
     }
+    /*
+    // Kontrollera e-postformat
+    const emailRegex = /^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/;//Skapar ett mönster för giltig e-post. För att kunna testa formatet
+    if (!emailRegex.test(email)) {//Testar om e-post matchar mönstret.Kollar om den inte matchar
+      // Fångar ogiltiga adresser
+      
+      return res.status(400).json({ message: "Ogiltig e-postadress" });
+    }*/
+
+    // Kontrollera lösenordets längd
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Lösenordet måste vara minst 6 tecken" });
+    }
     
     // Kolla om email redan finns
     const existingUser = await User.findOne({ email });
@@ -91,7 +104,7 @@ export const loginUser = async (req, res) => {
     // Skapa JWT token
     const token = jwt.sign(
       { userId: user._id },
-      process.env.JWT_SECRET,  // ← Samma hemliga nyckel!
+      process.env.JWT_SECRET,  
       { expiresIn: '24h' }
     );
     
@@ -108,6 +121,18 @@ export const loginUser = async (req, res) => {
     
   } catch (error) {
     console.error(" Login error:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getCurrentUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: "Användare hittades inte" });
+    }
+    res.status(200).json({ user });
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
