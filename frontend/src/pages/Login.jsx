@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useAuth } from "../Context/AuthContext.jsx";
 import { useCookieConsent } from "../context/CookieConsentContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import RegisterButton from "../components/RegisterButton";
 import AnimatedBackground from "../components/AnimatedBackground";
 
 export default function Login() {
   const { login } = useAuth();
   const { consent } = useCookieConsent();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -35,15 +37,22 @@ export default function Login() {
       setError("Du måste acceptera nödvändiga cookies för att logga in.");
       return;
     }
-    if (!window.localStorage.getItem('yapsspace_cookie_consent')) {
+    if (!window.localStorage.getItem("yapsspace_cookie_consent")) {
       setError("Du måste acceptera cookies för att logga in.");
+      return;
+    }
+
+    if (!executeRecaptcha) {
+      setError("reCaptcha laddas fortfarande - försök igen");
       return;
     }
 
     // Försök logga in med AuthContext
     try {
-      await login(formData.email, formData.password);
-      navigate('/');
+      const recaptchaToken = await executeRecaptcha("login");
+
+      await login(formData.email, formData.password, recaptchaToken);
+      navigate("/");
     } catch (err) {
       setError(err.message || "Inloggning misslyckades.");
     }
@@ -56,13 +65,28 @@ export default function Login() {
         <div className="w-full max-w-md bg-white p-10 rounded-3xl shadow-2xl border border-slate-100 flex flex-col items-center">
           {/* Ikon */}
           <div className="bg-violet-100 rounded-full w-16 h-16 flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#7c3aed" className="w-9 h-9">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 6.75V17.25C21 18.4926 19.9926 19.5 18.75 19.5H5.25C4.00736 19.5 3 18.4926 3 17.25V6.75M21 6.75C21 5.50736 19.9926 4.5 18.75 4.5H5.25C4.00736 4.5 3 5.50736 3 6.75M21 6.75L12 13.5L3 6.75" />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="#7c3aed"
+              className="w-9 h-9"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 6.75V17.25C21 18.4926 19.9926 19.5 18.75 19.5H5.25C4.00736 19.5 3 18.4926 3 17.25V6.75M21 6.75C21 5.50736 19.9926 4.5 18.75 4.5H5.25C4.00736 4.5 3 5.50736 3 6.75M21 6.75L12 13.5L3 6.75"
+              />
             </svg>
           </div>
           {/* Rubrik och underrubrik */}
-          <h1 className="text-3xl font-extrabold text-slate-800 mb-1">Välkommen tillbaka!</h1>
-          <p className="text-slate-600 text-base mb-8">Logga in för att fortsätta ditt yap-äventyr</p>
+          <h1 className="text-3xl font-extrabold text-slate-800 mb-1">
+            Välkommen tillbaka!
+          </h1>
+          <p className="text-slate-600 text-base mb-8">
+            Logga in för att fortsätta ditt yap-äventyr
+          </p>
 
           {error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
@@ -78,7 +102,9 @@ export default function Login() {
           {/* Formulär */}
           <form onSubmit={handleSubmit} className="w-full space-y-5">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
@@ -90,7 +116,9 @@ export default function Login() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Lösenord</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                Lösenord
+              </label>
               <input
                 type="password"
                 name="password"
@@ -112,8 +140,11 @@ export default function Login() {
           {/* Länk till registrering */}
           <div className="text-center mt-6">
             <p className="text-slate-600 text-sm">
-              Har du inget konto ännu?{' '}
-              <button onClick={() => navigate('/register')} className="text-violet-600 hover:text-violet-800 font-medium hover:underline transition-colors">
+              Har du inget konto ännu?{" "}
+              <button
+                onClick={() => navigate("/register")}
+                className="text-violet-600 hover:text-violet-800 font-medium hover:underline transition-colors"
+              >
                 Registrera dig här
               </button>
             </p>
@@ -122,13 +153,34 @@ export default function Login() {
           {/* Demo credentials-box */}
           <div className="w-full mt-8 bg-slate-50 border border-slate-200 rounded-xl p-4 text-slate-700 text-sm">
             <div className="font-semibold mb-1 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#6366f1" className="w-5 h-5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75A2.25 2.25 0 0014.25 4.5h-4.5A2.25 2.25 0 007.5 6.75v3.75m9 0V17.25A2.25 2.25 0 0114.25 19.5h-4.5A2.25 2.25 0 017.5 17.25V10.5m9 0h-9" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="#6366f1"
+                className="w-5 h-5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.5 10.5V6.75A2.25 2.25 0 0014.25 4.5h-4.5A2.25 2.25 0 007.5 6.75v3.75m9 0V17.25A2.25 2.25 0 0114.25 19.5h-4.5A2.25 2.25 0 017.5 17.25V10.5m9 0h-9"
+                />
               </svg>
               Demo Credentials:
             </div>
-            <div>Email: <span className="font-mono bg-slate-200 px-1 rounded">test@test.com</span></div>
-            <div>Lösenord: <span className="font-mono bg-slate-200 px-1 rounded">123456</span></div>
+            <div>
+              Email:{" "}
+              <span className="font-mono bg-slate-200 px-1 rounded">
+                test@test.com
+              </span>
+            </div>
+            <div>
+              Lösenord:{" "}
+              <span className="font-mono bg-slate-200 px-1 rounded">
+                123456
+              </span>
+            </div>
           </div>
         </div>
       </div>
