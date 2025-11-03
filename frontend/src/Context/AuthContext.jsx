@@ -1,18 +1,31 @@
-import {createContext, useContext, useState, useEffect} from 'react';
+import { useEffect, useState, createContext, useContext } from 'react';
 import axiosClient from '../api/axiosClient';
-
-
-
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  // Hämta användare från backend om token finns
   useEffect(() => {
-    const storeuser = localStorage.getItem("user");
-    if (storeuser) {
-      setUser(JSON.parse(storeuser));
+    const token = localStorage.getItem("token");
+    if (token) {
+      axiosClient.get("/auth/me")
+        .then(res => {
+          setUser(res.data.user);
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+        })
+        .catch(() => {
+          setUser(null);
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+        });
+    } else {
+      const storeuser = localStorage.getItem("user");
+      if (storeuser) {
+        setUser(JSON.parse(storeuser));
+      }
     }
   }, []);
 
@@ -22,35 +35,30 @@ export const AuthProvider = ({ children }) => {
     console.log("Login försök med:", { email, password });
 
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          email,
-          password,
-          recaptchaToken,
-        }),
+      const response = await axiosClient.post("/auth/login", {
+        email,
+        password,
+        recaptchaToken,
       });
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || "Inloggning misslyckades");
-      }
+      // Hämta data från svaret
+      const { user, token } = response.data;
 
-      const data = await response.json();
-      const loggedInUser = {
-        name: data.user?.name || data.name || "Användare",
-        email: data.user?.email || email,
-      };
-      setUser(loggedInUser);
-      localStorage.setItem("user", JSON.stringify(loggedInUser));
+      // Spara användare och token i state och localStorage
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
+
       return true;
     } catch (error) {
-      console.error("Login error:", error);
-      throw error;
+      // Visa backend-felmeddelande om det finns
+      const errorMsg =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        (Array.isArray(error.response?.data?.details) ? error.response.data.details.join(", ") : "") ||
+        "Inloggning misslyckades";
+      console.error("Login error:", errorMsg);
+      throw new Error(errorMsg);
     }
   };
 
@@ -58,38 +66,33 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (email, password, recaptchaToken, name) => {
     console.log("Register försök med:", { email });
-
     try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          recaptchaToken,
-        }),
+      const response = await axiosClient.post("/auth/register", {
+        name,
+        email,
+        password,
+        recaptchaToken,
       });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || "Registrering misslyckades");
-      }
-
-      const data = await response.json();
-      return data;
+      const { user, token } = response.data;
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
+      return response.data;
     } catch (error) {
-      console.error("Register error", error);
-      throw error;
+      const errorMsg =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        (Array.isArray(error.response?.data?.details) ? error.response.data.details.join(", ") : "") ||
+        "Registrering misslyckades";
+      console.error("Register error", errorMsg);
+      throw new Error(errorMsg);
     }
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   return (
