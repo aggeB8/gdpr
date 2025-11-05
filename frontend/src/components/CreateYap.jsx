@@ -9,7 +9,12 @@ export default function CreateYap({ onYapCreated }) {
     e.preventDefault();
 
     if (!content.trim()) {
-      setError("YAP cannot be empty!");
+      setError("Yap cannot be empty!");
+      return;
+    }
+
+    if (content.length > 300) {
+      setError("Yap must be 300 characters or less!");
       return;
     }
 
@@ -20,18 +25,16 @@ export default function CreateYap({ onYapCreated }) {
       const response = await fetch("http://localhost:3000/yaps", {
         method: "POST",
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ content }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create YAP");
+        throw new Error("Failed to create yap");
       }
 
       setContent("");
-      setError("");
-
       if (onYapCreated) {
         onYapCreated();
       }
@@ -43,28 +46,41 @@ export default function CreateYap({ onYapCreated }) {
   };
 
   return (
-    <div className="border-b border-gray-800 p-4 bg-gray-900">
-      <form onSubmit={handleSubmit}>
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="What's yapping?"
-          className="w-full p-3 bg-gray-800 text-white border border-gray-700 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder-gray-500"
-          rows={3}
-          maxLength={300}
-          disabled={loading}
-        />
-        <div className="flex justify-between items-center mt-3">
-          <span className="text-sm text-gray-400">{content.length}/300</span>
+    <div className="border-b border-slate-700 p-6 bg-slate-800">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="flex gap-4">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+            Y
+          </div>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            placeholder="What's yapping?"
+            className="flex-1 text-xl placeholder-slate-500 bg-slate-800 border border-slate-700 rounded-lg focus:border-blue-600 focus:ring-1 focus:ring-blue-500 resize-none text-slate-200 py-2 px-4"
+            rows={3}
+            maxLength={300}
+            disabled={loading}
+          />
+        </div>
+
+        <div className="flex justify-between items-center pl-16">
+          <div className="text-sm text-slate-500">
+            {content.length}/300
+          </div>
           <button
             type="submit"
-            className="px-6 py-2 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed"
             disabled={!content.trim() || loading}
+            className="px-8 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold disabled:bg-slate-700 disabled:cursor-not-allowed"
           >
-            Post
+            {loading ? "Posting..." : "Post"}
           </button>
         </div>
-        {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
+
+        {error && (
+          <div className="text-sm text-red-300 bg-red-950/50 border border-red-800 rounded-lg p-2">
+            {error}
+          </div>
+        )}
       </form>
     </div>
   );

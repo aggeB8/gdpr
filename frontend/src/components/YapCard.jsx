@@ -1,51 +1,39 @@
+import { useState } from "react";
 import { useTheme } from "../Context/ThemeContext";
+import ReplyModal from "./ReplyModal";
 
-export default function YapCard({ yap }) {
+export default function YapCard({ yap, onDelete, onReplyClick }) {
   const { isDark } = useTheme();
+  const [likes, setLikes] = useState(yap.likesCount || 0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
 
-  const handleLike = () => {
-    console.log("Gillade yap:", yap.id);
-  };
-
-  const handleReply = () => {
-    console.log("Svarar på yap:", yap.id);
-  };
-
-  const handleReyap = () => {
-    console.log("Re-yapar:", yap.id);
-  };
-
-  const handleDelete = async () => {
-    if (!window.confirm("Delete this YAP?")) {
-      return;
-    }
-
+  const handleLike = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/yaps/${yap.id}`, {
-        method: "DELETE",
+      const response = await fetch(`http://localhost:3000/yaps/${yap._id}/like`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: "507f1f77bcf86cd799439011" }), // FAKEID för nu
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to delete YAP");
-      }
-
-      if (yap.onDelete) {
-        yap.onDelete(yap.id);
+      if (response.ok) {
+        setIsLiked(!isLiked);
+        setLikes(isLiked ? likes - 1 : likes + 1);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error liking yap:", error);
     }
   };
 
   return (
     <div
-      className={`p-4 transition-colors relative ${
-        isDark ? "bg-gray-900 hover:bg-gray-800" : "bg-white hover:bg-gray-50"
-      }`}
+      className="border-b border-slate-700 p-4 transition-all duration-200 relative hover:bg-slate-700/50 group"
     >
       <button
-        onClick={handleDelete}
-        className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors p-1 rounded-full hover:bg-red-500/10"
+        onClick={() => onDelete(yap._id)}
+        className="absolute top-2 right-2 text-slate-500 hover:text-red-400 transition-colors p-1 rounded-full hover:bg-red-500/10"
         aria-label="Delete YAP"
       >
         <svg
@@ -80,48 +68,26 @@ export default function YapCard({ yap }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center space-x-2 mb-1">
             <span
-              className={`font-semibold hover:text-blue-500 transition-colors duration-200 cursor-pointer ${
-                isDark ? "text-white" : "text-gray-900"
-              }`}
+              className={`font-semibold hover:text-slate-300 transition-colors duration-200 cursor-pointer text-slate-200`}
             >
               {yap.user?.name}
             </span>
-            <span
-              className={`text-sm ${
-                isDark ? "text-gray-400" : "text-gray-500"
-              }`}
-            >
+            <span className="text-sm text-slate-500">
               @{yap.user?.username}
             </span>
-            <span className={isDark ? "text-slate-500" : "text-slate-500"}>
-              ·
-            </span>
-            <span
-              className={`text-sm transition-colors duration-200 ${
-                isDark
-                  ? "text-slate-300 hover:text-slate-200"
-                  : "text-slate-300 hover:text-slate-200"
-              }`}
-            >
+            <span className="text-slate-600">·</span>
+            <span className="text-sm text-slate-500">
               {yap.timeAgo}
             </span>
           </div>
 
-          <p
-            className={`leading-relaxed mb-3 ${
-              isDark ? "text-gray-100" : "text-gray-900"
-            }`}
-          >
+          <p className="leading-relaxed mb-3 text-slate-300">
             {yap.text}
           </p>
 
-          <div
-            className={`flex items-center justify-between max-w-md ${
-              isDark ? "text-slate-400" : "text-slate-400"
-            }`}
-          >
+          <div className="flex items-center justify-between max-w-md text-slate-500">
             <button
-              onClick={handleReply}
+              onClick={() => setIsReplyModalOpen(true)}
               className="flex items-center space-x-2 hover:text-blue-400 transition-all duration-200 p-2 rounded-full hover:bg-blue-500/10 group/btn"
             >
               <div className="relative">
@@ -143,7 +109,6 @@ export default function YapCard({ yap }) {
             </button>
 
             <button
-              onClick={handleReyap}
               className="flex items-center space-x-2 hover:text-green-400 transition-all duration-200 p-2 rounded-full hover:bg-green-500/10 group/btn"
             >
               <div className="relative">
@@ -166,24 +131,10 @@ export default function YapCard({ yap }) {
 
             <button
               onClick={handleLike}
-              className="flex items-center space-x-2 hover:text-red-400 transition-all duration-200 p-2 rounded-full hover:bg-red-500/10 group/btn"
+              className={`flex items-center space-x-2 ${isLiked ? 'text-red-500' : 'hover:text-red-400'}`}
             >
-              <div className="relative">
-                <svg
-                  className="w-5 h-5 group-hover/btn:scale-110 transition-transform duration-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
-              </div>
-              <span className="text-sm font-medium">{yap.likes || 0}</span>
+              <span>{isLiked ? '❤️' : '🤍'}</span>
+              <span>{likes}</span>
             </button>
 
             <button className="flex items-center space-x-2 hover:text-blue-400 transition-all duration-200 p-2 rounded-full hover:bg-blue-500/10 group/btn">
@@ -206,6 +157,14 @@ export default function YapCard({ yap }) {
           </div>
         </div>
       </div>
+      
+      {/* Reply Modal */}
+      <ReplyModal 
+        yap={yap}
+        isOpen={isReplyModalOpen}
+        onClose={() => setIsReplyModalOpen(false)}
+        onReplySubmit={onReplyClick}
+      />
     </div>
   );
 }

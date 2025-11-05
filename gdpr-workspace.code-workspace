@@ -1,0 +1,44 @@
+{
+  "folders": [
+    {
+      "name": "🚀 Frontend",
+      "path": "./frontend"
+    },
+    {
+      "name": "⚙️ Backend", 
+      "path": "./backend"
+    },
+    {
+      "name": "🔐 Backend Auth",
+      "path": "./backend-auth"
+    }
+  ],
+  "settings": {
+    "files.watcherExclude": {
+      "**/node_modules/**": true,
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/dist/**": true,
+      "**/build/**": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true
+    },
+    "typescript.tsserver.maxTsServerMemory": 4096,
+    "javascript.suggest.autoImports": false,
+    "typescript.suggest.autoImports": false,
+    "eslint.workingDirectories": [
+      { "mode": "auto" }
+    ],
+    "git.autorefresh": false,
+    "tailwindCSS.validate": false
+  },
+  "extensions": {
+    "recommendations": [
+      "bradlc.vscode-tailwindcss",
+      "ms-vscode.vscode-typescript-next"
+    ]
+  }
+}

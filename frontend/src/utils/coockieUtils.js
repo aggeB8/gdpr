@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 // Remove unused import
 export const COOKIE_CATEGORIES = {
   NECESSARY: 'necessary',        // Alltid tillåten
