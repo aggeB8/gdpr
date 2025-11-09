@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProfilePage from "./pages/ProfilePage";
+import SettingsPage from "./pages/SettingsPage";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CookieConsentBanner from "./components/CookieConsent/CookieConsentBanner";
@@ -41,6 +42,17 @@ function App() {
           </Link>
 
           <Link
+            to="/settings"
+            className={`px-8 py-3 font-medium transition-colors border-b-2 ${
+              location.pathname === "/settings"
+                ? "text-blue-600 border-blue-600 bg-blue-50"
+                : "text-gray-700 border-transparent hover:text-blue-600 hover:border-gray-300"
+            }`}
+          >
+            GDPR Inställningar
+          </Link>
+
+          <Link
             to="/login"
             className={`px-8 py-3 font-medium transition-colors border-b-2 ${
               location.pathname === "/login"
@@ -72,6 +84,15 @@ function App() {
           element={
             <ProtectedRoute>
               <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <SettingsPage />
             </ProtectedRoute>
           }
         />
