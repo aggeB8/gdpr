@@ -8,7 +8,7 @@ const PrivacyPolicyModal = ({ open, onClose }) => {
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 relative">
+      <div className="bg-white rounded-lg shadow-lg max-w-4xl w-full mx-4 p-6 relative" style={{maxHeight: '90vh'}}>
         <button
           className="absolute top-2 right-2 text-2xl text-gray-500 hover:text-gray-800"
           onClick={onClose}
@@ -16,44 +16,88 @@ const PrivacyPolicyModal = ({ open, onClose }) => {
         >
           ×
         </button>
-        <div style={{maxHeight: '70vh', overflowY: 'auto'}}>
+        <div style={{maxHeight: 'calc(90vh - 80px)', overflowY: 'auto', paddingRight: '10px'}}>
           <h2 className="text-2xl font-bold mb-4">Integritetspolicy</h2>
           <div className="prose prose-lg text-gray-800">
-            <p><strong>Översikt</strong></p>
-            <p>Välkommen till vår integritetspolicy – den digitala motsvarigheten till att läsa villkoren på en mikrovågsugn.<br/>
-            Här förklarar vi hur vi hanterar dina data, vilket i praktiken betyder att vi försöker hålla sidan vid liv utan att få GDPR-panik.<br/>
-            Klickar du runt här lämnar du spår, och vi samlar in dem som digitala Pokémon. Allt i vetenskapens, eller åtminstone underhållningens, namn.</p>
-            <p><strong>🍪 Cookies och Spårning</strong></p>
+            <p><strong>🧭 Översikt</strong></p>
+            <p>Välkommen till vår integritetspolicy – den juridiska motsvarigheten till att läsa bruksanvisningen för en granatkastare.<br/>
+            Här förklarar vi hur vi hanterar dina data utan att få ett nervöst sammanbrott över GDPR.</p>
+            <p>När du klickar runt här lämnar du spår. Vi samlar dem, analyserar dem och försöker förstå vad du håller på med.<br/>
+            Inte för att vi är NSA – vi är bara nyfikna och lite kontrollfreaks.</p>
+            <p>Kort sagt: du surfar, vi samlar, alla överlever (förhoppningsvis).</p>
+            
+            <p><strong>🍪 COOKIES – SMÅ DIGITALA SPIONER MED ATTITYD</strong></p>
+            
             <p><strong>🔒 Nödvändiga Cookies</strong><br/>
-            Dessa cookies är internetets motsvarighet till syre.<br/>
-            Stänger du av dem dör allt – sidan, vi, och förmodligen din webbläsare.<br/>
-            De ser till att du är inloggad, att sidan inte glömmer vem du är, och att världen inte spontant förvandlas till 404.</p>
+            Det här är internets version av hjärtslag.<br/>
+            Utan dem – poff! – allt dör.<br/>
+            De ser till att du kan logga in, att sidan inte glömmer vem du är, och att universum inte kraschar i 404.<br/>
+            ➡️ <em>Laglig grund:</em> Artikel 6(1)(b) – vi måste använda dem. Deal with it.</p>
+            
             <p><strong>📊 Analyscookies</strong><br/>
-            Här börjar det bli intressant.<br/>
-            De här små digitala spionerna berättar för oss hur du rör dig på sidan – var du klickar
-            Vi analyserar det hela för att förstå mänskligt beteende. Spoiler: det är kaos.</p>
+            De här små nördarna sitter i bakgrunden och räknar hur du klickar, scrollar och tappar tålamodet.<br/>
+            Vi använder datan för att förbättra sidan och bevisa att människor på internet är… oförutsägbara varelser.<br/>
+            ➡️ <em>Samtycke krävs</em> (Artikel 7). Du kan stänga av dem. Vi tar en shot och går vidare.</p>
+            
             <p><strong>📢 Marknadsföringscookies</strong><br/>
-            Dessa cookies är våra små skrikhalsar på internet.<br/>
-            De följer dig som en överentusiastisk säljare på en teknikmässa, bara för att kunna visa dig en annons om något du nämnde högt i köket igår.<br/>
-            Vi svär, vi gör det av kärlek. Och lite desperation.</p>
+            De är som överentusiastiska försäljare som följer efter dig på stan.<br/>
+            "Du gillade en tröja? Vill du ha 37 annonser om tröjor till?!"<br/>
+            ➡️ Du bestämmer. Klicka "nej" om du vill leva i reklamfri tystnad. Vi försöker att inte gråta.</p>
+            
             <p><strong>🎨 Personaliseringscookies</strong><br/>
-            De här är som små butlers i din webbläsare.<br/>
-            De kommer ihåg om du gillar mörkt läge, svenska eller engelska, och om du är den där personen som klickar “nej” på allt.<br/>
-            De försöker göra upplevelsen personlig – men låt oss vara ärliga, de gissar mest.</p>
-            <p><strong>⚖️ Dina Rättigheter enligt GDPR</strong><br/>
-            Du har rättigheter! (Ja, på riktigt.)<br/>
-            Du kan be oss radera allt, rätta saker, eller bara skicka dig ett mejl med rubriken “Vi vet inget längre”.<br/>
-            Du kan också ta tillbaka ditt samtycke – men då kanske våra cookies gråter.<br/>
-            Kort sagt: du har makten, vi har ångesten.</p>
-            <p><strong>🛠️ Hantera dina Cookie-inställningar</strong><br/>
-            Vill du ändra något? Kör hårt.<br/>
-            Klicka på cookie-ikonen, skruva i webbläsaren eller kasta din dator i sjön – allt funkar på sitt sätt.<br/>
-            (Vi rekommenderar dock alternativ 1 eller 2, av juridiska skäl.)</p>
-            <p><strong>📬 Kontakt</strong><br/>
-            Har du frågor, klagomål eller bara ett behov av att ventilera din ilska över hur internet fungerar?<br/>
-            Hör av dig till oss.<br/>
-            Vi svarar så fort vi är klara med att scrolla igenom en 900-sidors GDPR-tråd på Reddit.</p>
-            <p><strong>E-post:</strong> privacy@yapspace.com</p>
+            Små digitala butlers med tveksam självinsikt.<br/>
+            De försöker gissa om du gillar mörkt läge, svenska eller engelska, och vad du klickar "nej" på.<br/>
+            Ibland har de rätt. Oftast inte.<br/>
+            ➡️ <em>Syfte:</em> Att låtsas känna dig (Artikel 5 – dataminimering, typ).</p>
+            
+            <p><strong>⚖️ DINA RÄTTIGHETER (AKA: DU ÄR CHEFEN)</strong></p>
+            <p>Du har fler rättigheter än en influenser på samarbete:</p>
+            <ul>
+              <li><strong>✉️ Få ut dina data</strong> (Artikel 15) – be oss, så skickar vi en fil som ser ut som Matrix fast med färre Keanu Reeves.</li>
+              <li><strong>🗑️ Radera allt</strong> (Artikel 17) – vill du försvinna digitalt? Vi trycker på delete så hårt att datorn gnisslar.</li>
+              <li><strong>💾 Ladda ner dina data</strong> (Artikel 20) – i ett maskinläsbart format. Perfekt för nostalgiska tillbakablickar.</li>
+              <li><strong>🧩 Rätta fel</strong> (Artikel 16) – om något är fel, säg till. Vi fixar det snabbare än du hinner skriva "GDPR violation".</li>
+              <li><strong>🛑 Ta tillbaka ditt samtycke</strong> (Artikel 7) – inga problem. Våra cookies kommer sakna dig, men de klarar sig.</li>
+              <li><strong>� Kräv transparens</strong> (Artikel 12–14) – du får veta exakt vad vi gör, utan juridiskt mumbo-jumbo.</li>
+            </ul>
+            <p>Kort sagt: du bestämmer, vi får panik och försöker se professionella ut.</p>
+            
+            <p><strong>🛠️ COOKIEINSTÄLLNINGAR – TA KONTROLL (ELLER LÅT BLI)</strong><br/>
+            Vill du ändra dina inställningar?<br/>
+            Klicka på cookie-ikonen (du vet, den lilla grejen du ignorerade för fem minuter sen).<br/>
+            Eller stäng av allt i webbläsaren.<br/>
+            Alternativt – kasta datorn i sjön. (Vi rekommenderar dock metod 1 eller 2, för juridikens skull.)</p>
+            
+            <p><strong>🔐 SÄKERHET – VI LÅSER HÅRDARE ÄN FORT KNOX</strong><br/>
+            Vi krypterar allt.<br/>
+            Vi har lösenord, brandväggar och något som heter "sunt förnuft" (vår mest bristfälliga säkerhetsfunktion).<br/>
+            ➡️ <em>Artikel 32</em> – vi tar dataskydd på allvar, även om vi skämtar om det.</p>
+            <p>När något ska raderas, raderas det.<br/>
+            Inga skuggkopior. Inga hemliga servrar i öknen. Bara gone.</p>
+            
+            <p><strong>🌍 TREDJE PARTER – VÅRA (LITE SKUMMA) SAMARBETEN</strong><br/>
+            Vi samarbetar ibland med tredje parter för analys och annonser.<br/>
+            De får bara det de behöver, under tystnadsplikt, med GDPR-muskler (Artikel 28).<br/>
+            Ingen data går till länder utan skydd (Artikel 46) – vi skickar inte dina uppgifter på semester till USA utan pass.</p>
+            
+            <p><strong>🚨 OM DET GÅR ÅT HELVETE (DATAINTRÅNG)</strong><br/>
+            Om något går snett – typ att någon hackar oss, eller en hamster springer in i serverrummet –<br/>
+            då följer vi Artikel 33 & 34:</p>
+            <ul>
+              <li>Vi anmäler till myndigheten inom 72 timmar.</li>
+              <li>Vi berättar för dig vad som hände.</li>
+              <li>Vi försöker att inte få panik (det går sådär).</li>
+            </ul>
+            
+            <p><strong>📚 DOKUMENTATION OCH UPPDATERINGAR</strong><br/>
+            Vi loggar när du ger samtycke (Artikel 30),<br/>
+            uppdaterar policyn så fort någon i EU ändrar ett komma (Artikel 24),<br/>
+            och testar allt på alla webbläsare – ja, även den där du vägrar uppdatera.</p>
+            
+            <p><strong>🧑‍� KONTAKT</strong><br/>
+            Har du frågor, klagomål eller bara ett existentiellt sammanbrott över internet?<br/>
+            Släng iväg ett mejl. Vi svarar snabbare än du kan säga "dataskyddsombud".</p>
+            <p><strong>📧 E-post:</strong> privacy@yapspace.com</p>
           </div>
         </div>
       </div>
@@ -97,6 +141,7 @@ const CookieConsentBanner=()=>{
     return(
       <>
         <AnimatePresence>
+          {!showPolicy && (
           <motion.div
             className="cookie-consent-banner"
             initial={{y:'100%', opacity:0}}
@@ -176,6 +221,7 @@ const CookieConsentBanner=()=>{
               </div>
             </div>
           </motion.div>
+          )}
         </AnimatePresence>
         <PrivacyPolicyModal open={showPolicy} onClose={() => setShowPolicy(false)} />
       </>
