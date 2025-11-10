@@ -13,7 +13,6 @@ const SettingsPage = () => {
 
     // GDPR Article 15 - Right to Access Personal Data
     const handleViewMyData = async () => {
-        console.log(user)
         try {
             setLoading(true)
             const response = await axiosClient.get(`/gdpr/users/${user._id}/data-access`)

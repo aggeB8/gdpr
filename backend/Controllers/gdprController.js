@@ -4,9 +4,10 @@ import Yap from "../Models/yap.js"
 
 // DATA ACCESS REQUEST (Article 15)
 export const getDataAccess = async (req, res) => {
+    console.log(req.params.id)
+
     try {
         const userId = req.params.id
-
         const user = await User.findById(userId).select("-password")
         if (!user) {
             return res.status(404).json({ message: "User not found" })
