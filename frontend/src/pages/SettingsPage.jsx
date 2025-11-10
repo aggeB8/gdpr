@@ -32,7 +32,7 @@ const SettingsPage = () => {
         try {
             setLoading(true)
             const response = await axiosClient.get(
-                `/api/gdpr/users/${user.id}/export?format=${exportFormat}`,
+                `/api/gdpr/users/${user._id}/export?format=${exportFormat}`,
                 { responseType: "blob" }
             )
 
@@ -67,7 +67,7 @@ const SettingsPage = () => {
 
         try {
             setLoading(true)
-            await axiosClient.delete(`/api/gdpr/users/${user.id}/account`)
+            await axiosClient.delete(`/gdpr/users/${user._id}/account`)
             alert("Ditt konto har tagits bort. Du loggas nu ut.")
             logout()
         } catch (error) {
