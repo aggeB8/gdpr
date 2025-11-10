@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useAuth } from "../Context/AuthContext"
+import { useAuth } from "../Context/AuthContext.jsx"
 import axiosClient from "../api/axiosClient"
 
 const SettingsPage = () => {
@@ -13,6 +13,7 @@ const SettingsPage = () => {
 
     // GDPR Article 15 - Right to Access Personal Data
     const handleViewMyData = async () => {
+        console.log(user)
         try {
             setLoading(true)
             const response = await axiosClient.get(`/gdpr/users/${user._id}/data-access`)
@@ -32,7 +33,7 @@ const SettingsPage = () => {
         try {
             setLoading(true)
             const response = await axiosClient.get(
-                `/api/gdpr/users/${user._id}/export?format=${exportFormat}`,
+                `/gdpr/users/${user._id}/export?format=${exportFormat}`,
                 { responseType: "blob" }
             )
 
