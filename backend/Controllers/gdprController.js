@@ -1,3 +1,4 @@
+import { populate } from "dotenv"
 import User from "../Models/user.js"
 import Yap from "../Models/yap.js"
 
@@ -12,6 +13,9 @@ export const getDataAccess = async (req, res) => {
         }
 
         const yaps = await Yap.find({ author: userId })
+
+        //console.log(await Yap.find().populate("author"))
+
         const likedYaps = await Yap.find({ likes: userId }).select("_id content")
 
         const allYaps = await Yap.find({})
@@ -82,7 +86,9 @@ export const deleteAccount = async (req, res) => {
 
         const allYaps = await Yap.find({})
         for (const yap of allYaps) {
-            const updatedReplies = yap.replies.filter((reply) => reply.author.toString() !== userId)
+            const updatedReplies = yap.replies.filter(
+                (reply) => reply.author.toString() !== userId
+            )
             yap.replies = updatedReplies
             yap.repliesCount = updatedReplies.length
             await yap.save()
@@ -122,11 +128,17 @@ export const exportData = async (req, res) => {
             csvContent += `User: ${user.name} (${user.email})\n`
             csvContent += `Yaps: ${yaps.length}\n\n`
             res.setHeader("Content-Type", "text/csv")
-            res.setHeader("Content-Disposition", `attachment; filename="data-${userId}.csv"`)
+            res.setHeader(
+                "Content-Disposition",
+                `attachment; filename="data-${userId}.csv"`
+            )
             res.send(csvContent)
         } else {
             res.setHeader("Content-Type", "application/json")
-            res.setHeader("Content-Disposition", `attachment; filename="data-${userId}.json"`)
+            res.setHeader(
+                "Content-Disposition",
+                `attachment; filename="data-${userId}.json"`
+            )
             res.json(exportData)
         }
     } catch (error) {
