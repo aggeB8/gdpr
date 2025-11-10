@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../Context/AuthContext';
+import { useAuth } from '../Context/AuthContext';
 import axiosClient from '../api/axiosClient';
 
 const SettingsPage = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useAuth();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);
   const [showUserData, setShowUserData] = useState(false);
