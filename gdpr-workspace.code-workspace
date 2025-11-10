@@ -14,26 +14,47 @@
     }
   ],
   "settings": {
+    // Aggressiv file watching exclusion
     "files.watcherExclude": {
       "**/node_modules/**": true,
-      "**/.git/objects/**": true,
-      "**/.git/subtree-cache/**": true,
+      "**/.git/**": true,
       "**/dist/**": true,
-      "**/build/**": true
+      "**/build/**": true,
+      "**/coverage/**": true,
+      "**/.cache/**": true
     },
     "search.exclude": {
       "**/node_modules": true,
       "**/dist": true,
-      "**/build": true
+      "**/build": true,
+      "**/.git/objects": true
     },
-    "typescript.tsserver.maxTsServerMemory": 4096,
+    // TypeScript optimering
+    "typescript.tsserver.maxTsServerMemory": 2048,
+    "typescript.preferences.includePackageJsonAutoImports": "off",
     "javascript.suggest.autoImports": false,
     "typescript.suggest.autoImports": false,
-    "eslint.workingDirectories": [
-      { "mode": "auto" }
-    ],
+    "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+    "typescript.disableAutomaticTypeAcquisition": true,
+    // Git optimering
     "git.autorefresh": false,
-    "tailwindCSS.validate": false
+    "git.autofetch": false,
+    "git.decorations.enabled": false,
+    "git.enableSmartCommit": false,
+    // Tailwind optimering
+    "tailwindCSS.validate": false,
+    "tailwindCSS.emmetCompletions": false,
+    "tailwindCSS.showPixelEquivalents": false,
+    // ESLint
+    "eslint.enable": false,
+    "eslint.workingDirectories": [],
+    // Editor optimering
+    "editor.minimap.enabled": false,
+    "editor.hover.delay": 1000,
+    // System
+    "extensions.autoUpdate": false,
+    "extensions.autoCheckUpdates": false,
+    "telemetry.telemetryLevel": "off"
   },
   "extensions": {
     "recommendations": [
