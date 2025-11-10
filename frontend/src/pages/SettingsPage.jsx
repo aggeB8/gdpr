@@ -16,7 +16,7 @@ const SettingsPage = () => {
         console.log(user)
         try {
             setLoading(true)
-            const response = await axiosClient.get(`/gdpr/users/${user._id}/data-access`)
+            const response = await axiosClient.get(`/gdpr/users/${user.id}/data-access`)
             setUserData(response.data)
             console.log(response.data)
             setShowUserData(true)
@@ -33,7 +33,7 @@ const SettingsPage = () => {
         try {
             setLoading(true)
             const response = await axiosClient.get(
-                `/gdpr/users/${user._id}/export?format=${exportFormat}`,
+                `/gdpr/users/${user.id}/export?format=${exportFormat}`,
                 { responseType: "blob" }
             )
 
@@ -68,7 +68,7 @@ const SettingsPage = () => {
 
         try {
             setLoading(true)
-            await axiosClient.delete(`/gdpr/users/${user._id}/account`)
+            await axiosClient.delete(`/gdpr/users/${user.id}/account`)
             alert("Ditt konto har tagits bort. Du loggas nu ut.")
             logout()
         } catch (error) {
